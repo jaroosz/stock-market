@@ -43,25 +43,33 @@ export async function bankStockExists(stockName: string): Promise<boolean> {
     return result.rows.length > 0;
 }
 
-export async function buyFromBank(stockName: string): Promise<void> {
-    await pool.query(
-        `
-        UPDATE bank_stocks
-        SET quantity = quantity - 1
-        WHERE stock_name = $1
-        `,
-        [stockName]
-    );
-}
+// export async function buyFromBank(stockName: string): Promise<void> {
+//     await pool.query(
+//         `
+//         UPDATE bank_stocks
+//         SET quantity = quantity - 1
+//         WHERE stock_name = $1
+//         `,
+//         [stockName]
+//     );
+// }
 
-export async function sellToBank(stockName: string): Promise<void> {
-    await pool.query(
-        `
-        INSERT INTO bank_stocks (stock_name, quantity)
-        VALUES ($1, 1)
-        ON CONFLICT (stock_name)
-        DO UPDATE SET quantity = bank_stocks.quantity + 1
-        `,
+// export async function sellToBank(stockName: string): Promise<void> {
+//     await pool.query(
+//         `
+//         INSERT INTO bank_stocks (stock_name, quantity)
+//         VALUES ($1, 1)
+//         ON CONFLICT (stock_name)
+//         DO UPDATE SET quantity = bank_stocks.quantity + 1
+//         `,
+//         [stockName]
+//     );
+// }
+
+export async function getBankStockQuantity(stockName: string): Promise<number> {
+    const result = await pool.query(
+        'SELECT "quantity" FROM bank_stocks WHERE stock_name = $1',
         [stockName]
     );
+    return result.rows[0]?.quantity ?? 0;;
 }
