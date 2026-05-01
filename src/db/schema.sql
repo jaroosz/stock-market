@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS "wallets" (
-  "Id" varchar PRIMARY KEY
+  "id" varchar PRIMARY KEY
 );
 
 CREATE TABLE IF NOT EXISTS "bank_stocks" (
@@ -23,4 +23,4 @@ CREATE TABLE IF NOT EXISTS "audit_log" (
 
 ALTER TABLE "wallet_stocks" ADD FOREIGN KEY ("stock_name") REFERENCES "bank_stocks" ("stock_name") DEFERRABLE INITIALLY IMMEDIATE;
 
-ALTER TABLE "wallet_stocks" ADD FOREIGN KEY ("wallet_id") REFERENCES "wallets" ("Id") DEFERRABLE INITIALLY IMMEDIATE;
+ALTER TABLE "wallet_stocks" ADD FOREIGN KEY ("wallet_id") REFERENCES "wallets" ("id") DEFERRABLE INITIALLY IMMEDIATE;
