@@ -5,14 +5,42 @@ Service simulating a simplified stock market REST API.
 ## Tech Stack
 
 - **Runtime**: Node.js
-
 - **Language**: TypeScript
-
 - **Framework**: Express
-
 - **Database**: PostgreSQL
-
 - **Infrastructure**: Docker Compose (2 app instances + PostgreSQL + Nginx load balancer)
+
+## How to Run
+
+**Prerequisites:** Docker Desktop installed and running.
+
+### Linux / macOS
+```bash
+# Make executable (first time only)
+chmod +x start.sh
+
+# Default port (3000)
+./start.sh
+
+# Custom port
+./start.sh 8080
+```
+
+### Windows (PowerShell)
+```powershell
+# Default port (3000)
+.\start.ps1
+
+# Custom port
+.\start.ps1 8080
+```
+
+API will be available at http://localhost:PORT
+
+To stop:
+```bash
+docker compose down
+```
 
 ## Architecture Diagram
 
@@ -32,43 +60,14 @@ src/
 ├── controllers/      # Parsing requests and formatting HTTP responses
 ├── dal/              # Data Access Layer (Raw SQL execution)
 ├── db/               # Database connection pool and configuration
+├── docs/             # Documentation
+├── middleware/       # Middleware (error handler)
 ├── models/           # TypeScript interfaces and DTOs
 ├── routes/           # Express routing definitions
 ├── services/         # Core business logic and transaction management
 ├── app.ts            # Express app setup and middleware configuration
+├── db.ts             # Database configuration
 └── index.ts          # Server entry point
-```
-
-## How to Run
-
-**Prerequisites:** Docker Desktop installed and running.
-
-### Linux / macOS
-```bash
-# Make executable (first time only)
-chmod +x start.sh
-
-# Default port (80)
-./start.sh
-
-# Custom port
-./start.sh 8080
-```
-
-### Windows (PowerShell)
-```bash
-# Default port (80)
-.\start.ps1
-
-# Custom port
-.\start.ps1 8080
-```
-
-API will be available at http://localhost:PORT
-
-To stop:
-```bash
-docker compose down
 ```
 
 ## API Endpoints
