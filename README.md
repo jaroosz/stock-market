@@ -43,18 +43,31 @@ src/
 
 **Prerequisites:** Docker Desktop installed and running.
 
-```
+### Linux / macOS
+```bash
+# Make executable (first time only)
+chmod +x start.sh
+
 # Default port (80)
-docker compose up --build
+./start.sh
 
 # Custom port
-PORT=8080 docker compose up --build
+./start.sh 8080
+```
+
+### Windows (PowerShell)
+```bash
+# Default port (80)
+.\start.ps1
+
+# Custom port
+.\start.ps1 8080
 ```
 
 API will be available at http://localhost:PORT
 
 To stop:
-```
+```bash
 docker compose down
 ```
 
