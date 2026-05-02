@@ -31,6 +31,12 @@ export async function postStocks(req: Request, res: Response, next: NextFunction
             return;
         }
 
+        const names = stocks.map((s: { name: string }) => s.name);
+        if (new Set(names).size !== names.length) {
+            res.status(400).json({ error: 'Duplicate stock names are not allowed' });
+            return;
+        }
+
         await setStocks(stocks);
         res.status(200).send();
     } catch (error) {

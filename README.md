@@ -41,8 +41,31 @@ src/
 
 ## How to Run
 
-TODO
+**Prerequisites:** Docker Desktop installed and running.
+
+```
+# Default port (80)
+docker compose up --build
+
+# Custom port
+PORT=8080 docker compose up --build
+```
+
+API will be available at http://localhost:PORT
+
+To stop:
+```
+docker compose down
+```
 
 ## API Endpoints
 
-TODO
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/wallets/:wallet_id` | Get wallet with all stocks |
+| `GET` | `/wallets/:wallet_id/stocks/:stock_name` | Get quantity of a specific stock in wallet |
+| `POST` | `/wallets/:wallet_id/stocks/:stock_name` | Buy or sell a stock (`{ "type": "buy"/"sell" }`) |
+| `GET` | `/stocks` | Get all available bank stocks |
+| `POST` | `/stocks` | Set bank stocks (`{ "stocks": [{ "name": "AAPL", "quantity": 10 }] }`) |
+| `GET` | `/log` | Get audit log of all transactions |
+| `POST` | `/chaos` | Kills one app instance |
