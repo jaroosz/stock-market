@@ -15,6 +15,7 @@ services:
 
   app1:
     build: .
+    restart: unless-stopped
     environment:
       DB_USER: postgres
       DB_PASSWORD: postgres
@@ -28,6 +29,7 @@ services:
 
   app2:
     build: .
+    restart: unless-stopped
     environment:
       DB_USER: postgres
       DB_PASSWORD: postgres
