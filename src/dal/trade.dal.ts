@@ -7,6 +7,11 @@ export async function executeBuy(walletId: string, stockName: string): Promise<v
     try {
         await client.query('BEGIN');
 
+        await client.query(
+            'INSERT INTO wallets (id) VALUES ($1) ON CONFLICT DO NOTHING',
+            [walletId]
+        );
+
         const result = await client.query(
             'SELECT quantity FROM bank_stocks WHERE stock_name = $1 FOR UPDATE',
             [stockName]

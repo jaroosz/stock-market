@@ -1,4 +1,4 @@
-import { upsertWallet, walletExists } from "../dal/wallets.dal";
+import { walletExists } from "../dal/wallets.dal";
 import { getAllWalletStocks, getWalletStockQuantity } from "../dal/wallet_stocks.dal";
 import { Wallet } from '../models/types';
 import { bankStockExists } from "../dal/bank_stocks.dal";
@@ -28,7 +28,6 @@ export async function tradeStock(walletId: string, stockName: string, type: "buy
         if (!(await bankStockExists(stockName))) {
             throw new AppError(404, 'Stock does not exist');
         }
-        await upsertWallet(walletId);
         await executeBuy(walletId, stockName);
     } else {
         await executeSell(walletId, stockName);
