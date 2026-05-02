@@ -21,6 +21,4 @@ CREATE TABLE IF NOT EXISTS "audit_log" (
   "stock_name" varchar NOT NULL
 );
 
-ALTER TABLE "wallet_stocks" ADD FOREIGN KEY ("stock_name") REFERENCES "bank_stocks" ("stock_name") DEFERRABLE INITIALLY IMMEDIATE;
-
 ALTER TABLE "wallet_stocks" ADD FOREIGN KEY ("wallet_id") REFERENCES "wallets" ("id") DEFERRABLE INITIALLY IMMEDIATE;

@@ -24,11 +24,10 @@ export async function getWalletStock(walletId: string, stockName: string): Promi
 }
 
 export async function tradeStock(walletId: string, stockName: string, type: "buy" | "sell"): Promise<void> {
-    if (!(await bankStockExists(stockName))) {
-        throw new AppError(404, 'Stock does not exist');
-    }
-
-    if (type == "buy") {
+    if (type === "buy") {
+        if (!(await bankStockExists(stockName))) {
+            throw new AppError(404, 'Stock does not exist');
+        }
         await upsertWallet(walletId);
         await executeBuy(walletId, stockName);
     } else {

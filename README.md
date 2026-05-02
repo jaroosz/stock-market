@@ -51,6 +51,7 @@ docker compose down
 - **Express.js instead of NestJS:** To maintain simplicity and avoid over-engineering for a system with limited scale and rigid requirements, a lightweight framework was chosen. This allows for clear, explicit route definitions similar to Minimal API approaches.
 - **Raw SQL over ORM:** Direct SQL queries via `pg` provide absolute control over critical database transactions, which are essential for financial applications to prevent race conditions during concurrent requests.
 - **Audit Log Independence:** The `audit_log` table intentionally lacks foreign key constraints to the `wallets` and `bank_stocks` tables. This ensures the log remains an immutable, append-only historical record, even if wallet records were to be archived or deleted in the future.
+- **Wallet Holdings Independence:** The `wallet_stocks` table intentionally has no foreign key constraint to `bank_stocks`. This allows wallets to retain and sell stocks even after they are removed from the bank via `POST /stocks`.
 - **High Availability (Active-Active):** Two application instances run concurrently behind an Nginx load balancer using a round-robin strategy. Database transactions and row-level locking (e.g., during stock purchases) manage concurrency and prevent double-spending or overselling.
 
 ### Project Structure
