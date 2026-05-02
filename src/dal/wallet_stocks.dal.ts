@@ -11,7 +11,7 @@ export async function getWalletStockQuantity(walletId: string, stockName: string
 
 export async function getAllWalletStocks(walletId: string): Promise<Stock[]> {
     const result = await pool.query(
-        'SELECT "stock_name", "quantity" FROM wallet_stocks WHERE "wallet_id" = $1',
+        'SELECT "stock_name", "quantity" FROM wallet_stocks WHERE "wallet_id" = $1 AND "quantity" > 0',
         [walletId]
     );
     return result.rows.map(row => ({

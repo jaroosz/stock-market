@@ -3,7 +3,7 @@ import { Stock } from '../models/types';
 
 export async function getAllBankStocks(): Promise<Stock[]> {
     const result = await pool.query(
-        'SELECT "stock_name", "quantity" FROM bank_stocks'
+        'SELECT "stock_name", "quantity" FROM bank_stocks WHERE "quantity" > 0'
     );
     return result.rows.map(row => ({
         name: row.stock_name,
