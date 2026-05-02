@@ -1,7 +1,7 @@
 import { upsertWallet, walletExists } from "../dal/wallets.dal";
 import { getAllWalletStocks, getWalletStockQuantity } from "../dal/wallet_stocks.dal";
 import { Wallet } from '../models/types';
-import { bankStockExists, getBankStockQuantity } from "../dal/bank_stocks.dal";
+import { bankStockExists } from "../dal/bank_stocks.dal";
 import { AppError } from "../models/errors";
 import { executeBuy, executeSell } from "../dal/trade.dal";
 
@@ -29,17 +29,9 @@ export async function tradeStock(walletId: string, stockName: string, type: "buy
     }
 
     if (type == "buy") {
-        if ((await getBankStockQuantity(stockName)) === 0) {
-            throw new AppError(400, "No stock available");
-        }
-
         await upsertWallet(walletId);
         await executeBuy(walletId, stockName);
     } else {
-        if ((await getWalletStockQuantity(walletId, stockName)) === 0) {
-            throw new AppError(400, "No stock in wallet");
-        }
-
         await executeSell(walletId, stockName);
     }
 }

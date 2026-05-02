@@ -66,10 +66,10 @@ export async function bankStockExists(stockName: string): Promise<boolean> {
 //     );
 // }
 
-export async function getBankStockQuantity(stockName: string): Promise<number> {
-    const result = await pool.query(
-        'SELECT "quantity" FROM bank_stocks WHERE stock_name = $1',
-        [stockName]
-    );
-    return result.rows[0]?.quantity ?? 0;;
-}
+// export async function getBankStockQuantity(stockName: string): Promise<number> {
+//     const result = await pool.query(
+//         'SELECT "quantity" FROM bank_stocks WHERE stock_name = $1',
+//         [stockName]
+//     );
+//     return result.rows[0]?.quantity ?? 0;;
+// }

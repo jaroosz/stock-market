@@ -1,10 +1,19 @@
 import pool from '../db';
+import { AppError } from "../models/errors";
 
 export async function executeBuy(walletId: string, stockName: string): Promise<void> {
     const client = await pool.connect();
 
     try {
         await client.query('BEGIN');
+
+        const result = await client.query(
+            'SELECT quantity FROM bank_stocks WHERE stock_name = $1 FOR UPDATE',
+            [stockName]
+        );
+        if (result.rows[0].quantity === 0) {
+            throw new AppError(400, 'No stock available');
+        }
 
         await client.query(
             'UPDATE bank_stocks SET quantity = quantity - 1 WHERE stock_name = $1',
@@ -38,6 +47,14 @@ export async function executeSell(walletId: string, stockName: string): Promise<
 
     try {
         await client.query('BEGIN');
+
+        const result = await client.query(
+            'SELECT quantity FROM wallet_stocks WHERE wallet_id = $1 AND stock_name = $2 FOR UPDATE',
+            [walletId, stockName]
+        );
+        if (!result.rows[0] || result.rows[0].quantity === 0) {
+            throw new AppError(400, 'No stock in wallet');
+        }
 
         await client.query(
         `
