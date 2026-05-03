@@ -53,6 +53,11 @@ export async function executeSell(walletId: string, stockName: string): Promise<
     try {
         await client.query('BEGIN');
 
+        await client.query(
+            'SELECT quantity FROM bank_stocks WHERE stock_name = $1 FOR UPDATE',
+            [stockName]
+        );
+
         const result = await client.query(
             'SELECT quantity FROM wallet_stocks WHERE wallet_id = $1 AND stock_name = $2 FOR UPDATE',
             [walletId, stockName]
