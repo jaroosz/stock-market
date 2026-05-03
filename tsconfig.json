@@ -37,5 +37,5 @@
     "skipLibCheck": true,
   },
   "include": ["src/**/*"],
-  "references": [{ "path": "./tsconfig.test.json" }]
+  // "references": [{ "path": "./tsconfig.test.json" }]
 }
