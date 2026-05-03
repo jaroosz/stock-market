@@ -21,20 +21,16 @@ Service simulating a simplified stock market REST API.
 # Make executable (first time only)
 chmod +x start.sh
 
-# Default port (3000)
-./start.sh
-
-# Custom port
-./start.sh 8080
+# Enter one of those lines
+./start.sh            # default port (3000)
+./start.sh 8080       # custom port
 ```
 
 ### Windows (PowerShell)
 ```powershell
-# Default port (3000)
-.\start.ps1
-
-# Custom port
-.\start.ps1 8080
+# Enter one of those lines
+.\start.ps1           # default port (3000)
+.\start.ps1 8080      # custom port
 ```
 
 API will be available at http://localhost:PORT
@@ -48,11 +44,6 @@ docker compose down
 
 ### Integration Tests
 
-**Note:** Before running tests, make sure `tsconfig.json` has the test reference uncommented (revert these changes before building the app):
-```json
-"references": [{ "path": "./tsconfig.test.json" }]
-```
-
 ```bash
 npm test
 ```
@@ -63,13 +54,19 @@ See [test plan](src/docs/test-plan.md) for a full list of covered cases.
 
 #### Linux / macOS
 ```bash
+# Make executable (first time only)
 chmod +x stress-test.sh
-./stress-test.sh
+
+# Enter one of those lines
+./stress-test.sh         # default port (3000)
+./stress-test.sh 8080    # custom port
 ```
 
 #### Windows (PowerShell)
 ```powershell
-.\stress-test.ps1
+# Enter one of those lines
+.\stress-test.ps1        # default port (3000)
+.\stress-test.ps1 8080   # custom port
 ```
 
 Stress test resets the database, starts the app, and runs 1000 concurrent operations across 10 virtual users.

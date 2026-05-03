@@ -1,5 +1,5 @@
 #!/bin/bash
-docker compose down -v
-docker compose up --build -d
+PORT=${1:-3000} docker compose down -v
+PORT=${1:-3000} docker compose up --build -d
 sleep 5
-docker run --rm -i grafana/k6 run - <tests/stress/buy_sell.js
+docker run --rm -i -e PORT=${1:-3000} grafana/k6 run - <tests/stress/buy_sell.js

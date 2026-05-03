@@ -7,7 +7,7 @@ const buyFailCount     = new Counter('trades_buy_fail');
 const sellSuccessCount = new Counter('trades_sell_success');
 const sellFailCount    = new Counter('trades_sell_fail');
 
-const BASE_URL = 'http://host.docker.internal:3000';
+const BASE_URL = `http://host.docker.internal:${__ENV.PORT || 3000}`;
 const STOCKS  = ['AAPL', 'GOOGL', 'MSFT', 'DJIA', 'SPX'];
 const WALLETS = Array.from({ length: 10 }, (_, i) => `wallet-${i + 1}`);
 const CHAOS_VU   = 1;
