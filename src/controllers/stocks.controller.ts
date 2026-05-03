@@ -22,7 +22,8 @@ export async function postStocks(req: Request, res: Response, next: NextFunction
         const isValid = stocks.every(s => 
             typeof s.name === 'string' && 
             s.name.trim() !== '' &&
-            typeof s.quantity === 'number' && 
+            typeof s.quantity === 'number' &&
+            Number.isInteger(s.quantity) &&
             s.quantity >= 0
         );
 
