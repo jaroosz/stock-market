@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "moduleResolution": "node",
+    "ignoreDeprecations": "6.0",
+    "types": ["node", "jest"],
+    "composite": true
+  },
+  "include": ["src/**/*", "tests/**/*"]
+}
