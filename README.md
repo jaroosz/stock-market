@@ -75,6 +75,10 @@ Stress test resets the database, starts the app, and runs 1000 concurrent operat
 
 ![System Architecture Diagram](src/docs/architecture.svg)
 
+## Database Schema
+
+![Database Schema](src/docs/db-schema.png)
+
 ## Architecture Decisions
 
 - **Express.js instead of NestJS:** To maintain simplicity and avoid over-engineering for a system with limited scale and rigid requirements, a lightweight framework was chosen. This allows for clear, explicit route definitions similar to Minimal API approaches.
@@ -82,6 +86,8 @@ Stress test resets the database, starts the app, and runs 1000 concurrent operat
 - **Audit Log Independence:** The `audit_log` table intentionally lacks foreign key constraints to the `wallets` and `bank_stocks` tables. This ensures the log remains an immutable, append-only historical record, even if wallet records were to be archived or deleted in the future.
 - **Wallet Holdings Independence:** The `wallet_stocks` table intentionally has no foreign key constraint to `bank_stocks`. This allows wallets to retain and sell stocks even after they are removed from the bank via `POST /stocks`. Wallets are created lazily — only upon a successful buy operation. A sell attempt on a non-existent wallet returns 400 without creating the wallet, as there are no stocks to sell.
 - **High Availability (Active-Active):** Two application instances run concurrently behind an Nginx load balancer using a round-robin strategy. Database transactions and row-level locking (e.g., during stock purchases) manage concurrency and prevent double-spending or overselling.
+- **Lock Ordering:** Database transactions always acquire row-level locks in a consistent order — bank stocks first, wallet stocks second. This prevents deadlocks during concurrent buy/sell operations.
+- **Case Sensitivity:** `stock_name` is case-sensitive. `AAPL` and `aapl` are treated as different stocks.
 
 ### Project Structure
 
