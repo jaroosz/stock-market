@@ -38,7 +38,7 @@ export async function tradeStockHandler(req: Request, res: Response, next: NextF
     try {
         const wallet_id = req.params.wallet_id as string;
         const stock_name = req.params.stock_name as string;
-        const type = req.body.type as string;
+        const type = req.body?.type as string;
 
         if (type !== 'buy' && type !== 'sell') {
             res.status(400).json({ error: 'type must be "buy" or "sell"' });
