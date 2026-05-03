@@ -9,6 +9,8 @@ Service simulating a simplified stock market REST API.
 - **Framework**: Express
 - **Database**: PostgreSQL
 - **Infrastructure**: Docker Compose (2 app instances + PostgreSQL + Nginx load balancer)
+- **Integration Tests**: Jest + Supertest
+- **Stress Tests**: k6
 
 ## How to Run
 
@@ -42,6 +44,36 @@ To stop:
 docker compose down
 ```
 
+## Testing
+
+### Integration Tests
+
+**Note:** Before running tests, make sure `tsconfig.json` has the test reference uncommented (revert these changes before building the app):
+```json
+"references": [{ "path": "./tsconfig.test.json" }]
+```
+
+```bash
+npm test
+```
+
+See [test plan](src/docs/test-plan.md) for a full list of covered cases.
+
+### Stress Tests
+
+#### Linux / macOS
+```bash
+chmod +x stress-test.sh
+./stress-test.sh
+```
+
+#### Windows (PowerShell)
+```powershell
+.\stress-test.ps1
+```
+
+Stress test resets the database, starts the app, and runs 1000 concurrent operations across 10 virtual users.
+
 ## Architecture Diagram
 
 ![System Architecture Diagram](src/docs/architecture.svg)
@@ -67,8 +99,16 @@ src/
 ├── routes/           # Express routing definitions
 ├── services/         # Core business logic and transaction management
 ├── app.ts            # Express app setup and middleware configuration
-├── db.ts             # Database configuration
 └── index.ts          # Server entry point
+
+tests/
+├── integration/
+│   ├── helpers/      # Database utilities
+│   ├── log.test.ts
+│   ├── stocks.test.ts
+│   └── wallets.test.ts
+└── stress/
+    └── buy_sell.js   # k6 stress test scenario
 ```
 
 ## API Endpoints
