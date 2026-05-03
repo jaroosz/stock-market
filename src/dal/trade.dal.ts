@@ -1,4 +1,4 @@
-import pool from '../db';
+import pool from '../db/db';
 import { AppError } from "../models/errors";
 
 export async function executeBuy(walletId: string, stockName: string): Promise<void> {

@@ -1,6 +1,6 @@
 import request from 'supertest';
 import app from '../../src/app';
-import pool from '../../src/db';
+import pool from '../../src/db/db';
 import { clearDatabase, closePool } from './helpers/db';
 
 beforeEach(async () => {

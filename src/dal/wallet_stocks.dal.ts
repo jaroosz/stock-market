@@ -1,4 +1,4 @@
-import pool from '../db';
+import pool from '../db/db';
 import { Stock } from '../models/types';
 
 export async function getWalletStockQuantity(walletId: string, stockName: string): Promise<number> {

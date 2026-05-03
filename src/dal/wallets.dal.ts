@@ -1,4 +1,4 @@
-import pool from '../db';
+import pool from '../db/db';
 
 export async function walletExists(walletId: string): Promise<boolean> {
     const result = await pool.query(

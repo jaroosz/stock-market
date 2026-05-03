@@ -1,4 +1,4 @@
-import pool from '../db';
+import pool from '../db/db';
 import { Log } from '../models/types';
 
 export async function getAllLogs(): Promise<Log[]> {
